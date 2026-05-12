@@ -112,10 +112,7 @@
         }
         .icon-btn:hover { background-color: rgba(128, 128, 128, 0.2); }
         
-        /* Auth button special style */
-        #auth-btn.logged-in {
-            color: var(--accent-color);
-        }
+        #auth-btn.logged-in { color: var(--accent-color); }
 
         /* --- Tool Button Active State --- */
         .tool-btn.active { 
@@ -130,7 +127,6 @@
         body:not(.light-mode) .tool-btn.active { box-shadow: 0 2px 8px rgba(160, 124, 95, 0.4); }
         .tool-btn.active:hover { opacity: 0.9; background-color: var(--accent-color) !important; }
 
-        /* --- MODERN BACK BUTTON --- */
         .back-btn {
             background: transparent; border: none; cursor: pointer; color: var(--text-primary);
             display: flex; align-items: center; justify-content: center;
@@ -154,7 +150,6 @@
         #search-input { flex-grow: 1; border: none; outline: none; font-size: 16px; padding: 8px 12px; background: transparent; color: var(--text-primary); }
         .notes-list-container { flex-grow: 1; overflow-y: auto; padding: 16px; position: relative;}
         
-        /* --- LIST & GRID VIEW CSS --- */
         #notes-list { display: flex; flex-direction: column; gap: 12px; width: 100%; transition: opacity 0.4s ease; }
         
         .note-item {
@@ -167,7 +162,6 @@
         #notes-list.notes-grid-view .note-item { width: auto; height: 180px; }
         .note-item:hover { transform: translateY(-3px); border-color: var(--accent-color); }
         
-        /* --- SELECTION SYSTEM CSS --- */
         .note-item.selected { border-color: var(--accent-color); background-color: rgba(160, 124, 95, 0.15); transform: scale(0.98); }
         body.light-mode .note-item.selected { background-color: rgba(62, 120, 220, 0.1); }
         
@@ -190,9 +184,6 @@
         .note-item-preview img { display: none; }
         .note-item-date { font-size: 11px; color: var(--text-primary); opacity: 0.6; margin-top: 10px; flex-shrink: 0; align-self: flex-start; }
         
-        /* =========================================================
-           CENTERED, FULL-SPREAD ZOOM TITLE BAR & BLUR EFFECT
-           ========================================================= */
         #editor-blur-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -219,7 +210,6 @@
         #note-title-input::placeholder { transition: opacity 0.3s ease; opacity: 0.5; }
         #note-editor-page.title-focused #note-title-input::placeholder { opacity: 0.2; }
         
-        /* --- EDITOR CONTENT AREA --- */
         .note-editor-content-area { flex-grow: 1; position: relative; padding: 0; display: flex; flex-direction: column; overflow: hidden; z-index: 10; }
         #pagination-container { display: none; }
         .editor-page-visual { display: none; }
@@ -230,9 +220,7 @@
         [contenteditable]:empty:before { content: attr(data-placeholder); color: var(--text-primary); opacity: 0.5; pointer-events: none; display: block; }
         #note-meta-info { flex-shrink: 0; padding: 12px; text-align: center; font-size: 12px; opacity: 0.7; }
 
-        /* =========================================================
-           TO-DO ITEM CSS 
-           ========================================================= */
+        /* --- TO-DO ITEM CSS --- */
         .note-editor-content-area ul { padding-left: 20px; }
         li.todo-item { list-style-type: none !important; position: relative; cursor: text; }
         li.todo-item::before {
@@ -259,7 +247,7 @@
         /* --- Toast Notification --- */
         .toast {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background-color: #333; color: #fff; 
-            padding: 16px 24px; border-radius: 8px; border: 1px solid #444; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 4000;
+            padding: 16px 24px; border-radius: 8px; border: 1px solid #444; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 6000;
             opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .toast.show { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
@@ -307,9 +295,42 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
 
-        /* =========================================================
-           SMART COLOR OVERRIDES FOR THEMES
-           ========================================================= */
+        /* --- AUTH MODAL CSS --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 5000; opacity: 1; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.hidden { opacity: 0; pointer-events: none; }
+        .auth-modal-content {
+            background-color: var(--bg-secondary); padding: 32px 24px; border-radius: 12px; 
+            width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative; display: flex; flex-direction: column; gap: 16px;
+            transform: scale(1); transition: transform 0.3s ease; border: 1px solid var(--border-color);
+        }
+        body.light-mode .auth-modal-content { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .modal-overlay.hidden .auth-modal-content { transform: scale(0.9); }
+        #auth-close-modal-btn { position: absolute; top: 12px; right: 12px; }
+        #auth-title { text-align: center; font-size: 24px; color: var(--heading-color); margin-bottom: 8px; }
+        .auth-input-group {
+            display: flex; align-items: center; background: var(--bg-primary);
+            border: 1px solid var(--border-color); border-radius: 8px; padding: 0 12px;
+        }
+        .auth-input-group i { color: var(--text-primary); opacity: 0.6; font-size: 20px; }
+        .auth-input-group input {
+            flex-grow: 1; border: none; outline: none; background: transparent;
+            padding: 14px 12px; color: var(--text-primary); font-size: 16px;
+        }
+        #auth-action-btn {
+            background: var(--accent-color); color: white; border: none;
+            padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 500;
+            cursor: pointer; transition: opacity 0.2s; margin-top: 8px;
+        }
+        #auth-action-btn:hover { opacity: 0.9; }
+        .auth-switch-text { text-align: center; font-size: 14px; color: var(--text-primary); margin-top: 8px; }
+        #auth-switch-btn { color: var(--accent-color); cursor: pointer; text-decoration: underline; font-weight: bold; }
+
         body:not(.light-mode) #note-content-input *[style*="color: rgb(0, 0, 0)"], body:not(.light-mode) #note-content-input *[style*="color: rgb(0,0,0)"], body:not(.light-mode) #note-content-input *[style*="color: #000000"], body:not(.light-mode) #note-content-input *[style*="color:#000000"], body:not(.light-mode) #note-content-input *[style*="color: black"], body:not(.light-mode) #note-content-input font[color="#000000"], body:not(.light-mode) #note-content-input font[color="black"], body:not(.light-mode) .note-item-preview *[style*="color: rgb(0, 0, 0)"], body:not(.light-mode) .note-item-preview *[style*="color: rgb(0,0,0)"], body:not(.light-mode) .note-item-preview *[style*="color: #000000"], body:not(.light-mode) .note-item-preview *[style*="color:#000000"], body:not(.light-mode) .note-item-preview *[style*="color: black"], body:not(.light-mode) .note-item-preview font[color="#000000"], body:not(.light-mode) .note-item-preview font[color="black"] { color: var(--text-primary) !important; }
         body.light-mode #note-content-input *[style*="color: rgb(255, 255, 255)"], body.light-mode #note-content-input *[style*="color: rgb(255,255,255)"], body.light-mode #note-content-input *[style*="color: #ffffff"], body.light-mode #note-content-input *[style*="color:#ffffff"], body.light-mode #note-content-input *[style*="color: white"], body.light-mode #note-content-input font[color="#ffffff"], body.light-mode #note-content-input font[color="white"], body.light-mode .note-item-preview *[style*="color: rgb(255, 255, 255)"], body.light-mode .note-item-preview *[style*="color: rgb(255,255,255)"], body.light-mode .note-item-preview *[style*="color: #ffffff"], body.light-mode .note-item-preview *[style*="color:#ffffff"], body.light-mode .note-item-preview *[style*="color: white"], body.light-mode .note-item-preview font[color="#ffffff"], body.light-mode .note-item-preview font[color="white"] { color: var(--text-primary) !important; }
     </style>
@@ -318,11 +339,10 @@
     <div class="app-container">
 
         <div id="notes-list-page" class="page active">
-            <!-- Normal Header -->
             <header id="main-app-header" class="app-header">
                 <h1><i class='bx bxs-book'></i><span>Nextup Notes</span></h1>
                 <div class="header-actions">
-                    <button id="auth-btn" class="icon-btn" title="Login with Google to Sync"><i class='bx bx-user-circle'></i></button>
+                    <button id="auth-btn" class="icon-btn" title="Login / Register"><i class='bx bx-user-circle'></i></button>
                     <button id="view-toggle-btn" class="icon-btn" title="Toggle view"><i class='bx bx-grid-alt'></i></button>
                     <button id="search-btn" class="icon-btn" title="Search"><i class='bx bx-search'></i></button>
                     <button id="theme-toggle-btn" class="icon-btn" title="Toggle theme"><i class='bx bx-moon'></i></button> 
@@ -330,7 +350,6 @@
                 </div>
             </header>
 
-            <!-- Selection Mode Header -->
             <header id="selection-header" class="app-header hidden">
                 <div style="display: flex; align-items: center; gap: 12px;">
                     <button id="cancel-selection-btn" class="icon-btn" title="Cancel"><i class='bx bx-x'></i></button>
@@ -493,29 +512,50 @@
         </div>
         
         <div class="toast" id="toast"></div>
+
+        <!-- --- Auth Modal (Email/Password) --- -->
+        <div id="auth-modal" class="modal-overlay hidden">
+            <div class="auth-modal-content">
+                <button id="auth-close-modal-btn" class="icon-btn"><i class='bx bx-x'></i></button>
+                <h2 id="auth-title">Log In</h2>
+                <div class="auth-input-group">
+                    <i class='bx bx-envelope'></i>
+                    <input type="email" id="auth-email" placeholder="Email Address" required>
+                </div>
+                <div class="auth-input-group">
+                    <i class='bx bx-lock-alt'></i>
+                    <input type="password" id="auth-password" placeholder="Password" required>
+                </div>
+                <button id="auth-action-btn">Log In</button>
+                <p class="auth-switch-text">
+                    <span id="auth-switch-prompt">Don't have an account?</span> 
+                    <span id="auth-switch-btn">Sign Up</span>
+                </p>
+            </div>
+        </div>
+
     </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // ==========================================
-        // 🔥 FIREBASE CONFIGURATION (Replace With Yours)
+        // 🔥 FIREBASE CONFIGURATION (Do Not Change)
         // ==========================================
         const firebaseConfig = {
-    apiKey: "AIzaSyDcmBYI_4Vco3Zv5tE_I6mg-EmO28YtZ0g",
-    authDomain: "nextup-notes.firebaseapp.com",
-    projectId: "nextup-notes",
-    storageBucket: "nextup-notes.firebasestorage.app",
-    messagingSenderId: "152798561129",
-    appId: "1:152798561129:web:ac343f6a8878d99cb433f8"
-};
+            apiKey: "AIzaSyDcmBYI_4Vco3Zv5tE_I6mg-EmO28YtZ0g",
+            authDomain: "nextup-notes.firebaseapp.com",
+            projectId: "nextup-notes",
+            storageBucket: "nextup-notes.firebasestorage.app",
+            messagingSenderId: "152798561129",
+            appId: "1:152798561129:web:ac343f6a8878d99cb433f8"
+        };
 
-        let auth, firestore, provider, currentUser = null;
+        let auth, firestore, currentUser = null;
 
         try {
             firebase.initializeApp(firebaseConfig);
             auth = firebase.auth();
             firestore = firebase.firestore();
-            provider = new firebase.auth.GoogleAuthProvider();
 
             auth.onAuthStateChanged(user => {
                 currentUser = user;
@@ -524,55 +564,77 @@
                 
                 if (user) {
                     authBtn.classList.add('logged-in');
-                    authBtnIcon.className = 'bx bxs-user-circle'; // Active User Icon
-                    authBtn.title = "Logged in as " + user.email + " (Click to logout)";
-                    syncCloudToLocal(); // Sync data from cloud upon login
+                    authBtnIcon.className = 'bx bxs-user-circle'; 
+                    authBtn.title = "Logged in as " + user.email + "\n(Click to logout)";
+                    syncNotes(); // Fetch from and Push to cloud automatically
                 } else {
                     authBtn.classList.remove('logged-in');
-                    authBtnIcon.className = 'bx bx-user-circle'; // Inactive User Icon
-                    authBtn.title = "Login with Google to Sync";
+                    authBtnIcon.className = 'bx bx-user-circle'; 
+                    authBtn.title = "Login to Sync";
                 }
             });
         } catch (e) {
-            console.warn("Firebase not configured correctly. Cloud sync disabled.", e);
+            console.warn("Firebase config error.", e);
         }
 
-        // --- Fetch from Cloud to Local (On Login) ---
-        const syncCloudToLocal = async () => {
+        // --- TRUE TWO-WAY CLOUD SYNC ---
+        const syncNotes = async () => {
             if (!currentUser || !db || !firestore) return;
-            showToast('Syncing notes from cloud...');
+            showToast('Syncing notes...');
             
             try {
+                // 1. Get notes from Cloud
                 const snapshot = await firestore.collection('users').doc(currentUser.uid).collection('notes').get();
-                if (snapshot.empty) {
-                    showToast('Sync complete: No notes found in cloud.');
-                    return;
-                }
-
-                const transaction = db.transaction('notes', 'readwrite');
-                const store = transaction.objectStore('notes');
-                
+                const cloudNotes =[];
                 snapshot.forEach(doc => {
                     const cloudNote = doc.data();
                     cloudNote.id = parseInt(doc.id, 10);
-                    
-                    // Only overwrite local if cloud is newer or local doesn't exist
-                    const getReq = store.get(cloudNote.id);
-                    getReq.onsuccess = () => {
-                        const localNote = getReq.result;
+                    cloudNotes.push(cloudNote);
+                });
+
+                // 2. Open DB and get notes from Local
+                const transaction = db.transaction('notes', 'readwrite');
+                const store = transaction.objectStore('notes');
+                const localReq = store.getAll();
+                
+                localReq.onsuccess = () => {
+                    const localNotes = localReq.result;
+                    const localNotesMap = new Map(localNotes.map(n => [n.id, n]));
+                    const cloudNotesMap = new Map(cloudNotes.map(n => [n.id, n]));
+
+                    // A. Update local DB with newer/missing cloud notes
+                    cloudNotes.forEach(cloudNote => {
+                        const localNote = localNotesMap.get(cloudNote.id);
                         if (!localNote || cloudNote.updatedAt > localNote.updatedAt) {
                             store.put(cloudNote);
                         }
-                    };
-                });
+                    });
+
+                    // B. Upload local notes that are missing/newer in the Cloud
+                    const batch = firestore.batch();
+                    let cloudUploads = 0;
+                    localNotes.forEach(localNote => {
+                        const cloudNote = cloudNotesMap.get(localNote.id);
+                        if (!cloudNote || localNote.updatedAt > cloudNote.updatedAt) {
+                            const docRef = firestore.collection('users').doc(currentUser.uid)
+                                                  .collection('notes').doc(String(localNote.id));
+                            batch.set(docRef, localNote);
+                            cloudUploads++;
+                        }
+                    });
+
+                    if (cloudUploads > 0) {
+                        batch.commit().catch(err => console.error("Cloud Upload Error:", err));
+                    }
+                };
                 
                 transaction.oncomplete = () => {
                     renderNotesList(document.getElementById('search-input').value);
-                    showToast('Cloud sync complete!');
+                    showToast('Sync complete!');
                 };
             } catch(e) {
-                console.error("Cloud sync error:", e);
-                showToast("Failed to sync from cloud.");
+                console.error("Sync error:", e);
+                showToast("Failed to sync notes.");
             }
         };
 
@@ -584,12 +646,9 @@
         let autoSaveTimer = null;
         let currentSort = 'date-desc';
         let isGridView = false;
-        
         let lastSelection = null; 
-        
         let recentTextColors =[];
         let recentHighlightColors =[];
-
         let isSelectionMode = false;
         let selectedNotes = new Set();
         let pressTimer = null;
@@ -613,7 +672,6 @@
         const deleteSelectedBtn = $('#delete-selected-btn');
         const shareSelectedBtn = $('#share-selected-btn');
         const fabBtn = $('#new-note-btn');
-        
         const addTodoBtn = $('#add-todo-btn'); 
         
         const textColorBtn = $('#text-color-btn');
@@ -685,10 +743,7 @@
             const container = type === 'text' ? textRecentGrid : highlightRecentGrid;
             const section = type === 'text' ? textRecentSection : highlightRecentSection;
             
-            if (list.length === 0) {
-                section.classList.add('hidden');
-                return;
-            }
+            if (list.length === 0) { section.classList.add('hidden'); return; }
             
             section.classList.remove('hidden');
             container.innerHTML = list.map(color => `
@@ -699,21 +754,13 @@
             
             container.querySelectorAll('.recent-color-option').forEach(option => {
                 option.addEventListener('mousedown', (e) => {
-                    e.preventDefault();
-                    restoreSelection(); 
+                    e.preventDefault(); restoreSelection(); 
                     const color = option.dataset.color;
-                    const command = type === 'text' ? 'foreColor' : 'backColor';
-                    document.execCommand(command, false, color);
+                    document.execCommand(type === 'text' ? 'foreColor' : 'backColor', false, color);
                     
-                    if(type === 'text') {
-                        textColorMenu.classList.remove('active');
-                        textCustomDot.style.background = color;
-                    } else {
-                        highlightColorMenu.classList.remove('active');
-                        highlightCustomDot.style.background = color;
-                    }
-                    scheduleAutoSave();
-                    addRecentColor(color, type); 
+                    if(type === 'text') { textColorMenu.classList.remove('active'); textCustomDot.style.background = color; } 
+                    else { highlightColorMenu.classList.remove('active'); highlightCustomDot.style.background = color; }
+                    scheduleAutoSave(); addRecentColor(color, type); 
                 });
             });
         };
@@ -724,7 +771,7 @@
             request.onsuccess = (e) => { 
                 db = e.target.result; 
                 renderNotesList();
-                if (currentUser) syncCloudToLocal();
+                if (currentUser) syncNotes();
             };
             request.onupgradeneeded = (e) => {
                 const db = e.target.result;
@@ -758,10 +805,8 @@
                 if (!title && !contentText) {
                     if (currentNoteId) {
                         const transaction = db.transaction('notes', 'readwrite');
-                        const store = transaction.objectStore('notes');
-                        store.delete(currentNoteId);
+                        transaction.objectStore('notes').delete(currentNoteId);
                         transaction.oncomplete = () => {
-                            // --- Cloud Sync: Delete empty note ---
                             if (currentUser && firestore) {
                                 firestore.collection('users').doc(currentUser.uid)
                                     .collection('notes').doc(String(currentNoteId))
@@ -771,54 +816,44 @@
                             resolve(null);
                         };
                         return;
-                    } else {
-                        return resolve(null);
-                    }
+                    } else return resolve(null);
                 }
 
-                if (!title && contentText) {
-                    title = contentText.split(/\s+/).slice(0, 5).join(' ');
-                }
+                if (!title && contentText) title = contentText.split(/\s+/).slice(0, 5).join(' ');
 
                 const now = Date.now();
                 const transaction = db.transaction('notes', 'readwrite');
                 const store = transaction.objectStore('notes');
                 
-                const noteData = { 
-                    title: title || 'Untitled Note', 
-                    content, 
-                    contentText, 
-                    updatedAt: now 
-                };
-
+                const noteData = { title: title || 'Untitled Note', content, contentText, updatedAt: now };
                 let request;
+                
                 if (currentNoteId) {
                     noteData.id = currentNoteId;
                     request = store.put(noteData);
                 } else {
                     noteData.createdAt = now; 
+                    // FIX: Unique ID ensures devices don't overwrite each other's notes
+                    noteData.id = now + Math.floor(Math.random() * 100000); 
                     request = store.add(noteData);
                 }
 
                 request.onsuccess = (e) => {
                     if (!currentNoteId) currentNoteId = e.target.result;
-                    noteData.id = currentNoteId; // Assign the newly generated or existing ID
+                    noteData.id = currentNoteId; 
                 };
 
                 transaction.oncomplete = () => {
                     updateMetaInfo(now);
-
-                    // --- Cloud Sync: Save Note to Firestore ---
+                    // Cloud Save
                     if (currentUser && firestore) {
                         firestore.collection('users').doc(currentUser.uid)
                             .collection('notes').doc(String(currentNoteId))
                             .set(noteData)
                             .catch(err => console.error("Firebase Sync Error: ", err));
                     }
-
                     resolve(currentNoteId);
                 };
-
                 transaction.onerror = (e) => reject(e.target.error);
             });
         };
@@ -831,13 +866,9 @@
 
             request.onsuccess = () => {
                 let notes = request.result;
-                if (currentSort === 'title') {
-                    notes.sort((a, b) => a.title.localeCompare(b.title));
-                } else if (currentSort === 'date-asc') {
-                    notes.sort((a, b) => a.updatedAt - b.updatedAt);
-                } else {
-                    notes.sort((a, b) => b.updatedAt - a.updatedAt);
-                }
+                if (currentSort === 'title') notes.sort((a, b) => a.title.localeCompare(b.title));
+                else if (currentSort === 'date-asc') notes.sort((a, b) => a.updatedAt - b.updatedAt);
+                else notes.sort((a, b) => b.updatedAt - a.updatedAt);
                 displayNotes(notes, filter);
             };
         };
@@ -853,290 +884,206 @@
             notesListEl.classList.toggle('notes-grid-view', isGridView);
             notesListEl.style.opacity = '0';
             setTimeout(() => {
-                notesListEl.innerHTML = filteredNotes.map(note => {
-                    const isSelectedClass = selectedNotes.has(note.id) ? 'selected' : '';
-                    return `
-                    <div class="note-item ${isSelectedClass}" data-id="${note.id}">
+                notesListEl.innerHTML = filteredNotes.map(note => `
+                    <div class="note-item ${selectedNotes.has(note.id) ? 'selected' : ''}" data-id="${note.id}">
                         <div class="select-badge"><i class='bx bx-check'></i></div>
                         <h2 class="note-item-title">${note.title || 'Untitled'}</h2>
                         <div class="note-item-preview">${note.content || 'No content'}</div>
                         <p class="note-item-date">${new Date(note.updatedAt).toLocaleString()}</p>
-                    </div>`;
-                }).join('');
+                    </div>`).join('');
                 notesListEl.style.opacity = '1';
             }, 150);
         };
 
-        const updateMetaInfo = (timestamp) => {
-            $('#note-meta-info').textContent = `Last edited: ${new Date(timestamp).toLocaleString()}`;
-        }
+        const updateMetaInfo = (timestamp) => { $('#note-meta-info').textContent = `Last edited: ${new Date(timestamp).toLocaleString()}`; }
 
         const openNote = (id) => {
-            const transaction = db.transaction('notes', 'readonly');
-            const store = transaction.objectStore('notes');
-            const request = store.get(id);
-
+            const request = db.transaction('notes', 'readonly').objectStore('notes').get(id);
             request.onsuccess = () => {
                 const note = request.result;
                 if (note) {
-                    currentNoteId = note.id;
-                    noteTitleInput.value = note.title;
-                    noteContentInput.innerHTML = note.content;
-                    updateMetaInfo(note.updatedAt);
-                    
-                    history.pushState({ page: 'editor' }, '', '#editor');
-                    navigateTo('editor');
-                    setTimeout(() => {
-                        document.execCommand('styleWithCSS', false, true); 
-                        noteContentInput.scrollTop = 0;
-                        noteContentInput.focus();
-                    }, 50);
-                } else {
-                    showToast('Note not found.');
-                }
+                    currentNoteId = note.id; noteTitleInput.value = note.title;
+                    noteContentInput.innerHTML = note.content; updateMetaInfo(note.updatedAt);
+                    history.pushState({ page: 'editor' }, '', '#editor'); navigateTo('editor');
+                    setTimeout(() => { document.execCommand('styleWithCSS', false, true); noteContentInput.scrollTop = 0; noteContentInput.focus(); }, 50);
+                } else showToast('Note not found.');
             };
         };
         
         const scheduleAutoSave = () => {
             clearTimeout(autoSaveTimer);
-            autoSaveTimer = setTimeout(() => {
-                saveNote().catch(err => console.error("Autosave failed:", err));
-            }, 1500);
+            autoSaveTimer = setTimeout(() => { saveNote().catch(e => console.error("Autosave failed:", e)); }, 1500);
         };
 
         const updateToolbarState = () => {
             const selection = window.getSelection();
-            if (document.activeElement !== noteContentInput && (!selection.anchorNode || !noteContentInput.contains(selection.anchorNode))) {
-                return;
-            }
+            if (document.activeElement !== noteContentInput && (!selection.anchorNode || !noteContentInput.contains(selection.anchorNode))) return;
 
             $$('.tool-btn[data-command]').forEach(button => {
-                const command = button.dataset.command;
                 try {
-                    if (document.queryCommandState(command)) {
-                        button.classList.add('active');
-                    } else {
-                        button.classList.remove('active');
-                    }
+                    if (document.queryCommandState(button.dataset.command)) button.classList.add('active');
+                    else button.classList.remove('active');
                 } catch (e) {}
             });
             
-            let inTodoItem = false;
-            let node = selection.anchorNode;
+            let inTodoItem = false, node = selection.anchorNode;
             while (node && node !== noteContentInput) {
-                if (node.nodeName === 'LI' && node.classList.contains('todo-item')) {
-                    inTodoItem = true;
-                    break;
-                }
+                if (node.nodeName === 'LI' && node.classList.contains('todo-item')) { inTodoItem = true; break; }
                 node = node.parentNode;
             }
-            
-            if (inTodoItem) {
-                addTodoBtn.classList.add('active');
-            } else {
-                addTodoBtn.classList.remove('active');
-            }
+            if (inTodoItem) addTodoBtn.classList.add('active'); else addTodoBtn.classList.remove('active');
         };
 
         const enterSelectionMode = () => {
-            isSelectionMode = true;
-            mainAppHeader.classList.add('hidden');
-            selectionHeader.classList.remove('hidden');
-            selectionHeader.classList.add('active');
+            isSelectionMode = true; mainAppHeader.classList.add('hidden');
+            selectionHeader.classList.remove('hidden'); selectionHeader.classList.add('active');
             fabBtn.classList.add('hidden');
         };
 
         const exitSelectionMode = () => {
-            isSelectionMode = false;
-            selectedNotes.clear();
+            isSelectionMode = false; selectedNotes.clear();
             mainAppHeader.classList.remove('hidden');
-            selectionHeader.classList.add('hidden');
-            selectionHeader.classList.remove('active');
+            selectionHeader.classList.add('hidden'); selectionHeader.classList.remove('active');
             fabBtn.classList.remove('hidden');
             $$('.note-item').forEach(item => item.classList.remove('selected'));
         };
 
         const toggleNoteSelection = (id) => {
             const item = $(`[data-id="${id}"]`);
-            if (selectedNotes.has(id)) {
-                selectedNotes.delete(id);
-                if (item) item.classList.remove('selected');
-            } else {
-                selectedNotes.add(id);
-                if (item) item.classList.add('selected');
-            }
-            
+            if (selectedNotes.has(id)) { selectedNotes.delete(id); if (item) item.classList.remove('selected'); } 
+            else { selectedNotes.add(id); if (item) item.classList.add('selected'); }
             selectionCountText.textContent = `${selectedNotes.size} Selected`;
             if (selectedNotes.size === 0) exitSelectionMode();
         };
 
         const startLongPress = (e, id) => {
             pressTimer = setTimeout(() => {
-                justLongPressed = true;
-                setTimeout(() => justLongPressed = false, 400); 
-                if (!isSelectionMode) {
-                    enterSelectionMode();
-                    toggleNoteSelection(id);
-                    if (navigator.vibrate) navigator.vibrate(50); 
-                }
+                justLongPressed = true; setTimeout(() => justLongPressed = false, 400); 
+                if (!isSelectionMode) { enterSelectionMode(); toggleNoteSelection(id); if (navigator.vibrate) navigator.vibrate(50); }
             }, 500); 
         };
 
-        const cancelLongPress = () => {
-            if (pressTimer) clearTimeout(pressTimer);
-        };
+        const cancelLongPress = () => { if (pressTimer) clearTimeout(pressTimer); };
 
         const extractTextFromHTML = (htmlElement) => {
             const clone = htmlElement.cloneNode(true);
-            clone.style.position = 'absolute';
-            clone.style.left = '-9999px';
-            document.body.appendChild(clone);
-
-            const todoItems = clone.querySelectorAll('li.todo-item');
-            todoItems.forEach(li => {
-                const isChecked = li.classList.contains('checked');
-                const prefix = isChecked ? '☑ ' : '☐ ';
-                li.innerText = prefix + li.innerText;
-            });
-            
-            const listItems = clone.querySelectorAll('li:not(.todo-item)');
-            listItems.forEach(li => {
-                li.innerText = '• ' + li.innerText;
-            });
-
-            const text = clone.innerText || clone.textContent;
-            document.body.removeChild(clone);
-            return text;
+            clone.style.position = 'absolute'; clone.style.left = '-9999px'; document.body.appendChild(clone);
+            clone.querySelectorAll('li.todo-item').forEach(li => { li.innerText = (li.classList.contains('checked') ? '☑ ' : '☐ ') + li.innerText; });
+            clone.querySelectorAll('li:not(.todo-item)').forEach(li => { li.innerText = '• ' + li.innerText; });
+            const text = clone.innerText || clone.textContent; document.body.removeChild(clone); return text;
         };
 
         const setupEventListeners = () => {
             
-            // --- FIREBASE AUTH BUTTON ---
+            // ==========================================
+            // 🔥 CUSTOM EMAIL/PASSWORD AUTH LOGIC
+            // ==========================================
+            let isLoginMode = true;
+            const authModal = document.getElementById('auth-modal');
+            const authEmail = document.getElementById('auth-email');
+            const authPassword = document.getElementById('auth-password');
+            const authActionBtn = document.getElementById('auth-action-btn');
+            const authSwitchBtn = document.getElementById('auth-switch-btn');
+            const authTitle = document.getElementById('auth-title');
+            const authSwitchPrompt = document.getElementById('auth-switch-prompt');
+
             $('#auth-btn').addEventListener('click', () => {
-                if (!auth) {
-                    showToast("Please add Firebase configuration first.");
-                    return;
-                }
-                
+                if (!auth) { showToast("Firebase not configured."); return; }
                 if (currentUser) {
-                    if (confirm('Are you sure you want to log out? Local notes will remain on device.')) {
-                        auth.signOut().then(() => showToast('Logged out successfully.'));
+                    if (confirm('Are you sure you want to log out? Offline notes will remain on device.')) {
+                        auth.signOut().then(() => { showToast('Logged out.'); renderNotesList(); });
                     }
                 } else {
-                    auth.signInWithPopup(provider)
-                        .then(() => showToast('Logging in...'))
-                        .catch(err => {
-                            console.error("Login failed:", err);
-                            showToast('Login failed.');
-                        });
+                    authEmail.value = ''; authPassword.value = '';
+                    authModal.classList.remove('hidden');
                 }
             });
+
+            $('#auth-close-modal-btn').addEventListener('click', () => { authModal.classList.add('hidden'); });
+
+            authSwitchBtn.addEventListener('click', () => {
+                isLoginMode = !isLoginMode;
+                authTitle.textContent = isLoginMode ? 'Log In' : 'Sign Up';
+                authActionBtn.textContent = isLoginMode ? 'Log In' : 'Sign Up';
+                authSwitchPrompt.textContent = isLoginMode ? "Don't have an account?" : "Already have an account?";
+                authSwitchBtn.textContent = isLoginMode ? 'Sign Up' : 'Log In';
+            });
+
+            authActionBtn.addEventListener('click', () => {
+                const email = authEmail.value.trim();
+                const password = authPassword.value;
+                if (!email || !password) { showToast("Please enter email & password."); return; }
+                
+                authActionBtn.textContent = 'Please wait...'; authActionBtn.disabled = true;
+
+                if (isLoginMode) {
+                    auth.signInWithEmailAndPassword(email, password)
+                        .then(() => { authModal.classList.add('hidden'); showToast('Logged in successfully!'); })
+                        .catch(err => showToast(err.message))
+                        .finally(() => { authActionBtn.textContent = 'Log In'; authActionBtn.disabled = false; });
+                } else {
+                    auth.createUserWithEmailAndPassword(email, password)
+                        .then(() => { authModal.classList.add('hidden'); showToast('Account created!'); })
+                        .catch(err => showToast(err.message))
+                        .finally(() => { authActionBtn.textContent = 'Sign Up'; authActionBtn.disabled = false; });
+                }
+            });
+            // ==========================================
 
             window.addEventListener('popstate', (event) => {
                 if (pages.editor.classList.contains('active')) {
                     if (document.activeElement) document.activeElement.blur(); 
                     window.getSelection().removeAllRanges(); 
-
-                    saveNote().then(() => {
-                        renderNotesList();
-                        navigateTo('list');
-                    });
+                    saveNote().then(() => { renderNotesList(); navigateTo('list'); });
                 }
             });
 
             $('#new-note-btn').addEventListener('click', () => {
-                currentNoteId = null;
-                noteTitleInput.value = '';
-                noteContentInput.innerHTML = '';
-                $('#note-meta-info').textContent = '';
-                lastSelection = null; 
-                
-                history.pushState({ page: 'editor' }, '', '#new-note');
-                navigateTo('editor');
-                setTimeout(() => {
-                    document.execCommand('styleWithCSS', false, true); 
-                    noteTitleInput.focus(); 
-                }, 50);
+                currentNoteId = null; noteTitleInput.value = ''; noteContentInput.innerHTML = '';
+                $('#note-meta-info').textContent = ''; lastSelection = null; 
+                history.pushState({ page: 'editor' }, '', '#new-note'); navigateTo('editor');
+                setTimeout(() => { document.execCommand('styleWithCSS', false, true); noteTitleInput.focus(); }, 50);
             });
 
             $('#back-to-list-btn').addEventListener('click', () => history.back());
 
             $('#theme-toggle-btn').addEventListener('click', () => {
                 document.body.classList.toggle('light-mode');
-                const isLightMode = document.body.classList.contains('light-mode');
-                localStorage.setItem('notesTheme', isLightMode ? 'light' : 'dark');
-                $('#theme-toggle-btn i').className = isLightMode ? 'bx bx-sun' : 'bx bx-moon';
+                const isLight = document.body.classList.contains('light-mode');
+                localStorage.setItem('notesTheme', isLight ? 'light' : 'dark');
+                $('#theme-toggle-btn i').className = isLight ? 'bx bx-sun' : 'bx bx-moon';
                 updateToolbarState();
             });
 
             $('#view-toggle-btn').addEventListener('click', () => {
-                isGridView = !isGridView;
-                $('#view-toggle-btn i').className = isGridView ? 'bx bx-list-ul' : 'bx bx-grid-alt';
-                localStorage.setItem('notesView', isGridView ? 'grid' : 'list');
-                renderNotesList($('#search-input').value);
+                isGridView = !isGridView; $('#view-toggle-btn i').className = isGridView ? 'bx bx-list-ul' : 'bx bx-grid-alt';
+                localStorage.setItem('notesView', isGridView ? 'grid' : 'list'); renderNotesList($('#search-input').value);
             });
 
-            $('#search-btn').addEventListener('click', () => {
-                searchBar.classList.add('active');
-                $('#search-input').focus();
-            });
-            $('#search-close-btn').addEventListener('click', () => {
-                searchBar.classList.remove('active');
-                $('#search-input').value = '';
-                renderNotesList();
-            });
+            $('#search-btn').addEventListener('click', () => { searchBar.classList.add('active'); $('#search-input').focus(); });
+            $('#search-close-btn').addEventListener('click', () => { searchBar.classList.remove('active'); $('#search-input').value = ''; renderNotesList(); });
             $('#search-input').addEventListener('input', (e) => renderNotesList(e.target.value));
 
-            $('#sort-notes-btn').addEventListener('click', (e) => {
-                e.stopPropagation();
-                $('#sort-menu').classList.toggle('active');
-            });
-            $$('.sort-option').forEach(option => {
-                option.addEventListener('click', (e) => {
-                    currentSort = e.currentTarget.dataset.sort;
-                    renderNotesList();
-                    $('#sort-menu').classList.remove('active');
-                });
-            });
+            $('#sort-notes-btn').addEventListener('click', (e) => { e.stopPropagation(); $('#sort-menu').classList.toggle('active'); });
+            $$('.sort-option').forEach(op => { op.addEventListener('click', (e) => { currentSort = e.currentTarget.dataset.sort; renderNotesList(); $('#sort-menu').classList.remove('active'); }); });
 
             noteTitleInput.addEventListener('focus', () => noteEditorPage.classList.add('title-focused'));
             noteTitleInput.addEventListener('blur', () => { noteEditorPage.classList.remove('title-focused'); scheduleAutoSave(); });
-
-            noteTitleInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault(); 
-                    noteTitleInput.blur(); 
-                    noteContentInput.focus(); 
-                }
-            });
-
-            noteTitleInput.addEventListener('input', scheduleAutoSave);
-            noteContentInput.addEventListener('input', scheduleAutoSave);
+            noteTitleInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); noteTitleInput.blur(); noteContentInput.focus(); } });
+            noteTitleInput.addEventListener('input', scheduleAutoSave); noteContentInput.addEventListener('input', scheduleAutoSave);
 
             noteContentInput.addEventListener('mousedown', (e) => {
                 if (e.target.tagName === 'LI' && e.target.classList.contains('todo-item')) {
-                    const rect = e.target.getBoundingClientRect();
-                    const clickX = e.clientX - rect.left;
-                    if (clickX < 10) { 
-                        e.preventDefault(); 
-                        e.target.classList.toggle('checked');
-                        scheduleAutoSave();
-                    }
+                    if (e.clientX - e.target.getBoundingClientRect().left < 10) { e.preventDefault(); e.target.classList.toggle('checked'); scheduleAutoSave(); }
                 }
             });
 
             noteContentInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     setTimeout(() => {
-                        let node = window.getSelection().anchorNode;
-                        if (node && node.nodeType === 3) node = node.parentNode;
+                        let node = window.getSelection().anchorNode; if (node && node.nodeType === 3) node = node.parentNode;
                         while (node && node !== noteContentInput) {
-                            if (node.nodeName === 'LI') {
-                                if (node.classList.contains('todo-item')) {
-                                    node.classList.remove('checked'); 
-                                }
-                                break;
-                            }
+                            if (node.nodeName === 'LI') { if (node.classList.contains('todo-item')) node.classList.remove('checked'); break; }
                             node = node.parentNode;
                         }
                         scheduleAutoSave();
@@ -1144,72 +1091,31 @@
                 }
             });
 
-            document.addEventListener('selectionchange', () => {
-                 if (document.activeElement === noteContentInput) {
-                    updateToolbarState();
-                    saveSelection(); 
-                }
-            });
+            document.addEventListener('selectionchange', () => { if (document.activeElement === noteContentInput) { updateToolbarState(); saveSelection(); } });
 
-            $$('.tool-btn[data-command]').forEach(button => {
-                button.addEventListener('mousedown', (e) => {
-                    e.preventDefault(); 
-                    restoreSelection(); 
-                    document.execCommand(button.dataset.command, false, null);
-                    scheduleAutoSave();
-                    updateToolbarState();
+            $$('.tool-btn[data-command]').forEach(btn => {
+                btn.addEventListener('mousedown', (e) => {
+                    e.preventDefault(); restoreSelection(); document.execCommand(btn.dataset.command, false, null);
+                    scheduleAutoSave(); updateToolbarState();
                 });
             });
 
             addTodoBtn.addEventListener('mousedown', (e) => {
-                e.preventDefault();
-                restoreSelection();
-
-                let isList = document.queryCommandState('insertUnorderedList') || document.queryCommandState('insertOrderedList');
-                if (!isList) document.execCommand('insertUnorderedList', false, null);
-                
-                const sel = window.getSelection();
-                if (!sel.rangeCount) return;
-                
-                const range = sel.getRangeAt(0);
-                const allLIs = noteContentInput.querySelectorAll('li');
-                
-                let selectedLIs =[];
-                
-                allLIs.forEach(li => {
-                    if (sel.containsNode(li, true) || li.contains(range.commonAncestorContainer)) {
-                        selectedLIs.push(li);
-                    }
-                });
-
+                e.preventDefault(); restoreSelection();
+                if (!(document.queryCommandState('insertUnorderedList') || document.queryCommandState('insertOrderedList'))) document.execCommand('insertUnorderedList', false, null);
+                const sel = window.getSelection(); if (!sel.rangeCount) return;
+                const range = sel.getRangeAt(0), selectedLIs =[];
+                noteContentInput.querySelectorAll('li').forEach(li => { if (sel.containsNode(li, true) || li.contains(range.commonAncestorContainer)) selectedLIs.push(li); });
                 if (selectedLIs.length === 0) return;
-
                 const shouldAdd = !selectedLIs[0].classList.contains('todo-item');
-
-                selectedLIs.forEach(li => {
-                    if (shouldAdd) {
-                        li.classList.add('todo-item');
-                    } else {
-                        li.classList.remove('todo-item');
-                        li.classList.remove('checked');
-                    }
-                });
-                
-                scheduleAutoSave();
-                updateToolbarState();
+                selectedLIs.forEach(li => { if (shouldAdd) li.classList.add('todo-item'); else { li.classList.remove('todo-item'); li.classList.remove('checked'); } });
+                scheduleAutoSave(); updateToolbarState();
             });
 
-            const toggleMenu = (menu, buttonBtn) => {
-                $$('.color-picker-menu, .sort-menu, .more-options-menu, .size-picker-menu, .font-family-menu').forEach(m => {
-                    if (m !== menu) m.classList.remove('active');
-                });
+            const toggleMenu = (menu, btn) => {
+                $$('.color-picker-menu, .sort-menu, .more-options-menu, .size-picker-menu, .font-family-menu').forEach(m => { if (m !== menu) m.classList.remove('active'); });
                 menu.classList.toggle('active');
-                if(menu.classList.contains('active') && buttonBtn) {
-                    const rect = buttonBtn.getBoundingClientRect();
-                    const screenWidth = window.innerWidth;
-                    if (rect.left > (screenWidth * 0.6)) menu.classList.add('menu-align-right');
-                    else menu.classList.remove('menu-align-right');
-                }
+                if(menu.classList.contains('active') && btn) { if (btn.getBoundingClientRect().left > (window.innerWidth * 0.6)) menu.classList.add('menu-align-right'); else menu.classList.remove('menu-align-right'); }
             };
             
             textColorBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(textColorMenu, textColorBtn); });
@@ -1217,53 +1123,19 @@
             fontSizeBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(fontSizeMenu, fontSizeBtn); });
             fontFamilyBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(fontFamilyMenu, fontFamilyBtn); });
             
-            customTextColorInput.addEventListener('input', (e) => {
-                restoreSelection();
-                const color = e.target.value;
-                document.execCommand('foreColor', false, color);
-                textCustomDot.style.background = color; 
-            });
+            customTextColorInput.addEventListener('input', (e) => { restoreSelection(); document.execCommand('foreColor', false, e.target.value); textCustomDot.style.background = e.target.value; });
             customTextColorInput.addEventListener('change', (e) => { addRecentColor(e.target.value, 'text'); scheduleAutoSave(); });
-            
-            customHighlightColorInput.addEventListener('input', (e) => {
-                restoreSelection();
-                const color = e.target.value;
-                document.execCommand('backColor', false, color);
-                highlightCustomDot.style.background = color; 
-            });
+            customHighlightColorInput.addEventListener('input', (e) => { restoreSelection(); document.execCommand('backColor', false, e.target.value); highlightCustomDot.style.background = e.target.value; });
             customHighlightColorInput.addEventListener('change', (e) => { addRecentColor(e.target.value, 'highlight'); scheduleAutoSave(); });
 
-            $$('.size-option').forEach(option => {
-                option.addEventListener('mousedown', (e) => {
-                    e.preventDefault();
-                    restoreSelection(); 
-                    document.execCommand('fontSize', false, option.dataset.size);
-                    fontSizeMenu.classList.remove('active');
-                    scheduleAutoSave();
-                });
-            });
+            $$('.size-option').forEach(op => { op.addEventListener('mousedown', (e) => { e.preventDefault(); restoreSelection(); document.execCommand('fontSize', false, op.dataset.size); fontSizeMenu.classList.remove('active'); scheduleAutoSave(); }); });
+            $$('.font-option').forEach(op => { op.addEventListener('mousedown', (e) => { e.preventDefault(); restoreSelection(); document.execCommand('fontName', false, op.dataset.font); fontFamilyMenu.classList.remove('active'); scheduleAutoSave(); }); });
 
-            $$('.font-option').forEach(option => {
-                option.addEventListener('mousedown', (e) => {
-                    e.preventDefault();
-                    restoreSelection(); 
-                    document.execCommand('fontName', false, option.dataset.font);
-                    fontFamilyMenu.classList.remove('active');
-                    scheduleAutoSave();
-                });
-            });
-
-            $$('.color-option:not(.recent-color-option)').forEach(option => {
-                option.addEventListener('mousedown', (e) => {
-                    e.preventDefault();
-                    restoreSelection();
-                    const color = option.dataset.color;
-                    const isText = option.closest('#text-color-menu') !== null;
-                    document.execCommand(isText ? 'foreColor' : 'backColor', false, color);
-                    option.closest('.color-picker-menu').classList.remove('active');
-                    
-                    if(isText) { textCustomDot.style.background = color; addRecentColor(color, 'text'); } 
-                    else { highlightCustomDot.style.background = color; addRecentColor(color, 'highlight'); }
+            $$('.color-option:not(.recent-color-option)').forEach(op => {
+                op.addEventListener('mousedown', (e) => {
+                    e.preventDefault(); restoreSelection(); const color = op.dataset.color, isText = op.closest('#text-color-menu') !== null;
+                    document.execCommand(isText ? 'foreColor' : 'backColor', false, color); op.closest('.color-picker-menu').classList.remove('active');
+                    if(isText) { textCustomDot.style.background = color; addRecentColor(color, 'text'); } else { highlightCustomDot.style.background = color; addRecentColor(color, 'highlight'); }
                     scheduleAutoSave();
                 });
             });
@@ -1273,89 +1145,45 @@
             deleteNoteBtn.addEventListener('click', () => {
                 if (currentNoteId && confirm('Are you sure you want to delete this note?')) {
                     clearTimeout(autoSaveTimer); 
-                    const transaction = db.transaction('notes', 'readwrite');
-                    transaction.objectStore('notes').delete(currentNoteId);
+                    const transaction = db.transaction('notes', 'readwrite'); transaction.objectStore('notes').delete(currentNoteId);
                     transaction.oncomplete = () => {
-                        
-                        // --- Cloud Sync: Delete single note ---
-                        if (currentUser && firestore) {
-                            firestore.collection('users').doc(currentUser.uid)
-                                .collection('notes').doc(String(currentNoteId))
-                                .delete().catch(err => console.error(err));
-                        }
-
-                        showToast('Note deleted.');
-                        currentNoteId = null;
-                        noteTitleInput.value = '';
-                        noteContentInput.innerHTML = '';
-                        moreOptionsMenu.classList.remove('active'); 
-                        renderNotesList();
-                        history.back();
+                        if (currentUser && firestore) firestore.collection('users').doc(currentUser.uid).collection('notes').doc(String(currentNoteId)).delete().catch(err => console.error(err));
+                        showToast('Note deleted.'); currentNoteId = null; noteTitleInput.value = ''; noteContentInput.innerHTML = '';
+                        moreOptionsMenu.classList.remove('active'); renderNotesList(); history.back();
                     };
-                } else if (!currentNoteId) {
-                    showToast('Cannot delete an unsaved note.');
-                }
+                } else if (!currentNoteId) showToast('Cannot delete an unsaved note.');
             });
 
             shareNoteBtn.addEventListener('click', async () => {
-                const title = noteTitleInput.value.trim() || 'Nextup Note';
-                const text = extractTextFromHTML($('#note-content-input'));
-                
-                if (navigator.share) {
-                    try { await navigator.share({ title: title, text: text }); } 
-                    catch (err) { console.error('Share failed:', err); }
-                } else {
-                    navigator.clipboard.writeText(`${title}\n\n${text}`).then(() => showToast('Copied to clipboard!'));
-                }
+                const title = noteTitleInput.value.trim() || 'Nextup Note', text = extractTextFromHTML($('#note-content-input'));
+                if (navigator.share) { try { await navigator.share({ title: title, text: text }); } catch (err) {} } 
+                else navigator.clipboard.writeText(`${title}\n\n${text}`).then(() => showToast('Copied to clipboard!'));
                 moreOptionsMenu.classList.remove('active');
             });
 
-            notesListEl.addEventListener('mousedown', (e) => {
-                const item = e.target.closest('.note-item');
-                if (item && !isSelectionMode) startLongPress(e, parseInt(item.dataset.id, 10));
-            });
-            notesListEl.addEventListener('touchstart', (e) => {
-                const item = e.target.closest('.note-item');
-                if (item && !isSelectionMode) startLongPress(e, parseInt(item.dataset.id, 10));
-            }, {passive: true});
-
-            notesListEl.addEventListener('mouseup', cancelLongPress);
-            notesListEl.addEventListener('mouseleave', cancelLongPress);
-            notesListEl.addEventListener('touchend', cancelLongPress);
-            notesListEl.addEventListener('touchmove', cancelLongPress, {passive: true});
+            notesListEl.addEventListener('mousedown', (e) => { const item = e.target.closest('.note-item'); if (item && !isSelectionMode) startLongPress(e, parseInt(item.dataset.id, 10)); });
+            notesListEl.addEventListener('touchstart', (e) => { const item = e.target.closest('.note-item'); if (item && !isSelectionMode) startLongPress(e, parseInt(item.dataset.id, 10)); }, {passive: true});
+            notesListEl.addEventListener('mouseup', cancelLongPress); notesListEl.addEventListener('mouseleave', cancelLongPress);
+            notesListEl.addEventListener('touchend', cancelLongPress); notesListEl.addEventListener('touchmove', cancelLongPress, {passive: true});
 
             notesListEl.addEventListener('click', (e) => {
-                const item = e.target.closest('.note-item');
-                if (!item || justLongPressed) return;
-
-                const id = parseInt(item.dataset.id, 10);
-                if (isSelectionMode) toggleNoteSelection(id);
-                else openNote(id);
+                const item = e.target.closest('.note-item'); if (!item || justLongPressed) return;
+                const id = parseInt(item.dataset.id, 10); if (isSelectionMode) toggleNoteSelection(id); else openNote(id);
             });
 
             cancelSelectionBtn.addEventListener('click', exitSelectionMode);
 
             deleteSelectedBtn.addEventListener('click', () => {
                 if (confirm(`Are you sure you want to delete ${selectedNotes.size} note(s)?`)) {
-                    const transaction = db.transaction('notes', 'readwrite');
-                    const store = transaction.objectStore('notes');
+                    const transaction = db.transaction('notes', 'readwrite'), store = transaction.objectStore('notes');
                     selectedNotes.forEach(id => store.delete(id));
-                    
                     transaction.oncomplete = () => {
-                        
-                        // --- Cloud Sync: Multi-delete notes ---
                         if (currentUser && firestore) {
                             const batch = firestore.batch();
-                            selectedNotes.forEach(id => {
-                                const docRef = firestore.collection('users').doc(currentUser.uid).collection('notes').doc(String(id));
-                                batch.delete(docRef);
-                            });
+                            selectedNotes.forEach(id => { batch.delete(firestore.collection('users').doc(currentUser.uid).collection('notes').doc(String(id))); });
                             batch.commit().catch(e => console.error(e));
                         }
-
-                        showToast(`${selectedNotes.size} Note(s) deleted.`);
-                        exitSelectionMode();
-                        renderNotesList();
+                        showToast(`${selectedNotes.size} Note(s) deleted.`); exitSelectionMode(); renderNotesList();
                     };
                 }
             });
@@ -1364,47 +1192,26 @@
                 let shareText = '';
                 for (const id of selectedNotes) {
                     const note = await getNoteById(id);
-                    if (note) {
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = note.content;
-                        shareText += `**${note.title || 'Untitled Note'}**\n${extractTextFromHTML(tempDiv)}\n\n`;
-                    }
+                    if (note) { const temp = document.createElement('div'); temp.innerHTML = note.content; shareText += `**${note.title || 'Untitled Note'}**\n${extractTextFromHTML(temp)}\n\n`; }
                 }
                 shareText = shareText.trim();
-                
-                if (navigator.share) {
-                    try { await navigator.share({ title: 'Shared Notes', text: shareText }); exitSelectionMode(); } 
-                    catch(e) { console.error(e); }
-                } else {
-                    navigator.clipboard.writeText(shareText).then(() => { showToast('Copied to clipboard!'); exitSelectionMode(); });
-                }
+                if (navigator.share) { try { await navigator.share({ title: 'Shared Notes', text: shareText }); exitSelectionMode(); } catch(e) {} } 
+                else navigator.clipboard.writeText(shareText).then(() => { showToast('Copied!'); exitSelectionMode(); });
             });
 
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('#sort-notes-btn') && !e.target.closest('#sort-menu')) $('#sort-menu').classList.remove('active');
                 if (!e.target.closest('#more-options-btn') && !e.target.closest('.more-options-menu')) moreOptionsMenu.classList.remove('active');
-                if (!e.target.closest('.color-picker')) {
-                    textColorMenu.classList.remove('active');
-                    highlightColorMenu.classList.remove('active');
-                    fontSizeMenu.classList.remove('active');
-                    fontFamilyMenu.classList.remove('active');
-                }
+                if (!e.target.closest('.color-picker')) { textColorMenu.classList.remove('active'); highlightColorMenu.classList.remove('active'); fontSizeMenu.classList.remove('active'); fontFamilyMenu.classList.remove('active'); }
+                if (e.target.matches('.modal-overlay')) { $('#auth-modal').classList.add('hidden'); }
             });
         };
 
         const initialize = () => {
-            const savedTheme = localStorage.getItem('notesTheme');
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-mode');
-                $('#theme-toggle-btn i').className = 'bx bx-sun';
-            }
-            
-            isGridView = localStorage.getItem('notesView') === 'grid';
-            if (isGridView) $('#view-toggle-btn i').className = 'bx bx-list-ul';
-            
+            if (localStorage.getItem('notesTheme') === 'light') { document.body.classList.add('light-mode'); $('#theme-toggle-btn i').className = 'bx bx-sun'; }
+            isGridView = localStorage.getItem('notesView') === 'grid'; if (isGridView) $('#view-toggle-btn i').className = 'bx bx-list-ul';
             history.replaceState({ page: 'list' }, '', '#list');
-            initDB();
-            setupEventListeners();
+            initDB(); setupEventListeners();
         };
 
         initialize();
